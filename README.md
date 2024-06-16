@@ -25,7 +25,7 @@ An advanced e-commerce platform built with Django and Django REST Framework (DRF
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/drf-ecommerce-platform.git
+   git clone [https://github.com/your-username/drf-ecommerce-platform.git](https://github.com/ShubhamNagure/drf-ecommerce-platform.git)
    cd drf-ecommerce-platform/ecommerce
    ```
 
