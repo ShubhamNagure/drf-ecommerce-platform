@@ -3,6 +3,11 @@ from django.contrib.auth import get_user_model
 from .serializers import UserSerializer, ProductSerializer , CartSerializer, OrderSerializer
 from .models import Product,Cart,Order
 
+from rest_framework.permissions import IsAuthenticated
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
+
 User = get_user_model()
 # Product = get_user_model()
 # Cart = get_user_model()
@@ -22,6 +27,8 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    # permission_classes = [IsAuthenticated]
+
 
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
