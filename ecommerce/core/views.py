@@ -31,15 +31,35 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = RegisterSerializer
 
+    def get_permissions(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            self.permission_classes = [IsAdminUser]
+        else:
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def get_permissions(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            self.permission_classes = [IsAdminUser]
+        else:
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()
+
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get_permissions(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            self.permission_classes = [IsAdminUser]
+        else:
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()
 
 
 class ProductList(generics.ListCreateAPIView):
@@ -48,7 +68,7 @@ class ProductList(generics.ListCreateAPIView):
 
     def get_permissions(self):
         # print("inside PUT >>>>>>>")
-        if self.request.method == 'POST':
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
             self.permission_classes = [IsAdminUser]
         else:
             self.permission_classes = [permissions.IsAuthenticated]
@@ -61,7 +81,7 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_permissions(self):
         print("inside >> ProductDetail")
-        if self.request.method in ['PUT', 'DELETE']:
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
             self.permission_classes = [IsAdminUser]
         else:
             self.permission_classes = [permissions.IsAuthenticated]
