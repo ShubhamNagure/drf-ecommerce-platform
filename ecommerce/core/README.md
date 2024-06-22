@@ -1,11 +1,13 @@
+Note: API's marked with * (asterisk) required admin access token.
+
 ### User Management
 
-- **Register User**: `POST /api/register/`
+- **Register User***: `POST /api/register/`
 - **List Users**: `GET /api/users/`
 - **Retrieve User**: `GET /api/users/{id}/`
-- **Update User**: `PUT /api/users/{id}/`
-- **Partial Update User**: `PATCH /api/users/{id}/`
-- **Delete User**: `DELETE /api/users/{id}/`
+- **Update User***: `PUT /api/users/{id}/`
+- **Partial Update User***: `PATCH /api/users/{id}/`
+- **Delete User***: `DELETE /api/users/{id}/`
 - **Login**: `POST /api/token/`
 - **Refresh Token**: `POST /api/token/refresh/`
 - **Logout**: `POST /api/token/blacklist/`
@@ -13,19 +15,19 @@
 ### Product Management
 
 - **List Products**: `GET /api/products/`
-- **Create Product**: `POST /api/products/`
+- **Create Product***: `POST /api/products/`
 - **Retrieve Product**: `GET /api/products/{id}/`
-- **Update Product**: `PUT /api/products/{id}/`
-- **Partial Update Product**: `PATCH /api/products/{id}/`
-- **Delete Product**: `DELETE /api/products/{id}/`
+- **Update Product***: `PUT /api/products/{id}/`
+- **Partial Update Product***: `PATCH /api/products/{id}/`
+- **Delete Product***: `DELETE /api/products/{id}/`
 
 ### Order Management (if implemented)
 
 - **List Orders**: `GET /api/orders/`
 - **Create Order**: `POST /api/orders/`
 - **Retrieve Order**: `GET /api/orders/{id}/`
-- **Update Order**: `PUT /api/orders/{id}/`
-- **Partial Update Order**: `PATCH /api/orders/{id}/`
+- **Update Order***: `PUT /api/orders/{id}/`
+- **Partial Update Order***: `PATCH /api/orders/{id}/`
 - **Delete Order**: `DELETE /api/orders/{id}/`
 
 ### Cart Management (if implemented)
