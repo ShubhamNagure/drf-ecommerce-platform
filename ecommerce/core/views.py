@@ -1,17 +1,35 @@
-from rest_framework import generics
+from rest_framework import generics ,permissions
 from django.contrib.auth import get_user_model
-from .serializers import UserSerializer, ProductSerializer , CartSerializer, OrderSerializer
+from .serializers import UserSerializer, ProductSerializer , CartSerializer, OrderSerializer, RegisterSerializer
 from .models import Product,Cart,Order
-
+from rest_framework_simplejwt.tokens import RefreshToken
+from .permissions import IsAdminUser, IsCustomerUser
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
+from rest_framework.response import Response
+from rest_framework import status
 
 
 User = get_user_model()
-# Product = get_user_model()
-# Cart = get_user_model()
-# Order = get_user_model()
+
+
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = RegisterSerializer
 
 
 class UserList(generics.ListCreateAPIView):
@@ -27,13 +45,27 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    # permission_classes = [IsAuthenticated]
 
+    def get_permissions(self):
+        # print("inside PUT >>>>>>>")
+        if self.request.method == 'POST':
+            self.permission_classes = [IsAdminUser]
+        else:
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()
 
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def get_permissions(self):
+        print("inside >> ProductDetail")
+        if self.request.method in ['PUT', 'DELETE']:
+            self.permission_classes = [IsAdminUser]
+        else:
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()
 
 
 class CartDetail(generics.RetrieveUpdateAPIView):

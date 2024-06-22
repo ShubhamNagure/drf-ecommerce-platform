@@ -3,6 +3,12 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
+    ROLE_CHOICES = (
+        ('admin', 'Admin'),
+        ('customer', 'Customer'),
+    )
+
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='customer')
     address = models.TextField(blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
 

@@ -3,4 +3,6 @@ pycache/
 db.sqlite3
 .env
 venv/
-.idea
+.idea/
+__pycache__/
+media
