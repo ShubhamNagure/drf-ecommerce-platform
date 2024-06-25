@@ -69,3 +69,4 @@ class Order(models.Model):
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"
 
+    # TODO: after order placed the product quantity should be decreased.
